@@ -32,3 +32,8 @@ hr {
 .strike {
   text-decoration: line-through
 }
+
+#not-found {
+  margin-top: 50px;
+  margin-bottom: 200px;
+}
