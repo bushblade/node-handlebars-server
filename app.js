@@ -1,6 +1,6 @@
 const express = require('express'),
   app = express(),
-  exphbs = require('express-handlebars'),
+  exhbs = require('express-handlebars'),
   bodyParser = require('body-parser'),
   priv = require('./private'),
   mailgun = require('mailgun-js')({
@@ -9,10 +9,11 @@ const express = require('express'),
   })
 port = 80
 
-app.engine('handlebars', exphbs({
+app.engine('hbs', exhbs({
+  extname: 'hbs',
   defaultLayout: 'main'
 }))
-app.set('view engine', 'handlebars')
+app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
 
