@@ -1,83 +1,65 @@
 const dqs = element => document.querySelector(element)
 
-const form = dqs('form'),
-  name = dqs('#name'),
-  email = dqs('#email'),
-  emailMessage = dqs('#emailMessage'),
-  emailSuccess = dqs('#emailSuccess'),
-  emailFail = dqs('#emailFail'),
-  text = dqs('#text'),
-  textSuccess = dqs('#textSuccess'),
-  textFail = dqs('#textFail')
-
-const valid = {
-  name: false,
-  email: false,
-  message: false
-}
-
-email.addEventListener('keyup', validateEmail)
-name.addEventListener('keyup', validateName)
-text.addEventListener('keyup', validateText)
-
-form.addEventListener('submit', e => {
-  if (!Object.values(valid).every(x => x)) {
-    e.preventDefault()
-    validateEmail()
-    validateName()
-    validateText()
-    return
+const listener = (state) => ({
+  listen() {
+    state.input.addEventListener('keyup', state.validate)
   }
 })
 
-function validateEmail() {
-  const re = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
-  if (!re.test(email.value)) {
-    valid.email = false
-    email.classList.remove('is-success')
-    email.classList.add('is-danger')
-    emailMessage.classList.add('help', 'is-danger')
-    emailMessage.textContent = 'This email is invalid!'
-    emailSuccess.classList.add('is-hidden')
-    emailFail.classList.remove('is-hidden')
-  } else {
-    valid.email = true
-    email.classList.remove('is-danger')
-    email.classList.add('is-success')
-    emailMessage.textContent = ''
-    emailSuccess.classList.remove('is-hidden')
-    emailFail.classList.add('is-hidden')
+const validator = state => ({
+  validate() {
+    if (state.re.test(state.input.value)) {
+      state.valid = true
+      state.input.classList.remove('is-danger')
+      state.input.classList.add('is-success')
+      state.success.classList.remove('is-hidden')
+      state.fail.classList.add('is-hidden')
+      state.message ? state.message.textContent = '' : false
+    } else {
+      state.valid = false
+      state.input.classList.remove('is-success')
+      state.input.classList.add('is-danger')
+      state.success.classList.add('is-hidden')
+      state.fail.classList.remove('is-hidden')
+      state.message ? state.message.textContent = 'This email is invalid!' : false
+    }
   }
+})
+
+const formInput = (input, success, fail, re = /\S/, message = null) => {
+  const state = {
+    valid: false,
+    input,
+    success,
+    fail,
+    re,
+    message
+  }
+  return Object.assign(state, listener(state), validator(state))
 }
 
-function validateName() {
-  if (/\S/.test(name.value)) {
-    valid.name = true
-    name.classList.remove('is-danger')
-    name.classList.add('is-success')
-    nameSuccess.classList.remove('is-hidden')
-    nameFail.classList.add('is-hidden')
-  } else {
-    valid.name = false
-    name.classList.remove('is-success')
-    name.classList.add('is-danger')
-    nameSuccess.classList.add('is-hidden')
-    nameFail.classList.remove('is-hidden')
-  }
-}
+const name = formInput(dqs('#name'),
+                       dqs('#nameSuccess'),
+                       dqs('#nameFail'))
 
-function validateText() {
-  if (/\S/.test(text.value)) {
-    valid.message = true
-    text.classList.remove('is-danger')
-    text.classList.add('is-success')
-    textSuccess.classList.remove('is-hidden')
-    textFail.classList.add('is-hidden')
-  } else {
-    valid.message = false
-    text.classList.remove('is-success')
-    text.classList.add('is-danger')
-    textSuccess.classList.add('is-hidden')
-    textFail.classList.remove('is-hidden')
+const email = formInput(dqs('#email'),
+                        dqs('#emailSuccess'),
+                        dqs('#emailFail'),
+                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+                        dqs('#emailMessage'))
+
+const text = formInput(dqs('#text'), 
+                       dqs('#textSuccess'),
+                       dqs('#textFail'))
+
+const inputs = [name, email, text]
+
+inputs.forEach(input => input.listen())
+
+dqs('form').addEventListener('submit', e => {
+  if (!inputs.every(input => input.valid)) {
+    e.preventDefault()
+    inputs.forEach(input => input.validate())
+    return
   }
-}
+})
