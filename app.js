@@ -21,10 +21,14 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-app.get('/', (req, res) => res.render('index'))
+app.get('/', (req, res) => res.render('index', {
+  title: 'Home'
+}))
 
 app.get('/contact', (req, res) => res.render('contact', {
-  success: false
+  title: 'Contact',
+  success: false,
+  script: "/contactValidate.js"
 }))
 
 app.post('/contact', (req, res) => {
@@ -32,11 +36,12 @@ app.post('/contact', (req, res) => {
   const data = {
     from: `${req.body.name} <${req.body.email}>`,
     to: priv().to,
-    subject: 'Message recieved from your website',
+    subject: 'Message received from your website',
     text: req.body.message
   }
   mailgun.messages().send(data, (error, body) => console.log(body))
   res.render('contact', {
+    title: 'Contact',
     success: true
   })
 })
