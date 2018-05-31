@@ -1,0 +1,28 @@
+html {
+  background-color: #363636;
+}
+
+@media (min-width: 500px) {
+  .container {
+    max-width: 500px;
+    margin-top: 3rem;
+  }
+}
+
+.box {
+  min-height: 6.5rem;
+  overflow-wrap: break-word;
+}
+
+.columns {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.hero {
+  border-radius: 0.5rem;
+}
+
+.hero-body {
+  padding: 2rem 1rem;
+}

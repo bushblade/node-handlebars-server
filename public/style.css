@@ -1,0 +1,34 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.media {
+  align-items: center;
+}
+
+
+/* fix for bulma columns padding issue */
+
+.columns {
+  margin: 0;
+}
+
+.mfizz {
+  font-size: 1.5rem;
+}
+
+hr {
+  margin: 0.5rem 0;
+}
+.bulma {
+  width: 200px;
+}
+
+.strike {
+  text-decoration: line-through
+}
