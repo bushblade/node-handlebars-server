@@ -1,11 +1,5 @@
 const dqs = element => document.querySelector(element)
 
-const listener = (state) => ({
-  listen() {
-    state.input.addEventListener('keyup', state.validate)
-  }
-})
-
 const validator = state => ({
   validate() {
     if (state.re.test(state.input.value)) {
@@ -26,35 +20,38 @@ const validator = state => ({
   }
 })
 
-const formInput = (input, success, fail, re = /\S/, message = null) => {
-  const state = {
-    valid: false,
-    input: dqs(input),
-    success: dqs(success),
-    fail: dqs(fail),
-    re,
-    message: dqs(message)
+const fields = [{
+    input: '#name',
+    success: '#nameSuccess',
+    fail: '#nameFail',
+    re: /\S/,
+    valid: false
+  },
+  {
+    input: '#email',
+    success: '#emailSuccess',
+    fail: '#emailFail',
+    re: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+    message: dqs('#emailMessage'),
+    valid: false
+  },
+  {
+    input: '#text',
+    success: '#textSuccess',
+    fail: '#textFail',
+    re: /\S/,
+    valid: false
   }
-  return Object.assign(state, listener(state), validator(state))
-}
+]
 
-const name = formInput('#name',
-                       '#nameSuccess',
-                       '#nameFail')
-
-const email = formInput('#email',
-                        '#emailSuccess',
-                        '#emailFail',
-                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-                        '#emailMessage')
-
-const text = formInput('#text', 
-                       '#textSuccess',
-                       '#textFail')
-
-const fields = [name, email, text]
-
-fields.forEach(input => input.listen())
+fields.forEach(field => {
+  field.input = dqs(field.input)
+  field.success = dqs(field.success)
+  field.fail = dqs(field.fail)
+  Object.assign(field, validator(field))
+  field.input.addEventListener('keyup', field.validate)
+  field.input.addEventListener('blur', field.validate)
+})
 
 dqs('form').addEventListener('submit', e => {
   if (!fields.every(input => input.valid)) {
