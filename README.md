@@ -8,3 +8,14 @@ This server is so far a static replacement for my apache server, to run it node 
 ```
 sudo setcap cap_net_bind_service=+ep /bin/node
 ```
+
+The app is running with [pm2](http://pm2.keymetrics.io/)
+
+Start the server
+```
+pm2 start app.js
+```
+Set pm2 to restart the app after a reboot
+```
+pm2 startup
+```
