@@ -29,37 +29,37 @@ const validator = state => ({
 const formInput = (input, success, fail, re = /\S/, message = null) => {
   const state = {
     valid: false,
-    input,
-    success,
-    fail,
+    input: dqs(input),
+    success: dqs(success),
+    fail: dqs(fail),
     re,
-    message
+    message: dqs(message)
   }
   return Object.assign(state, listener(state), validator(state))
 }
 
-const name = formInput(dqs('#name'),
-                       dqs('#nameSuccess'),
-                       dqs('#nameFail'))
+const name = formInput('#name',
+                       '#nameSuccess',
+                       '#nameFail')
 
-const email = formInput(dqs('#email'),
-                        dqs('#emailSuccess'),
-                        dqs('#emailFail'),
+const email = formInput('#email',
+                        '#emailSuccess',
+                        '#emailFail',
                         /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-                        dqs('#emailMessage'))
+                        '#emailMessage')
 
-const text = formInput(dqs('#text'), 
-                       dqs('#textSuccess'),
-                       dqs('#textFail'))
+const text = formInput('#text', 
+                       '#textSuccess',
+                       '#textFail')
 
-const inputs = [name, email, text]
+const fields = [name, email, text]
 
-inputs.forEach(input => input.listen())
+fields.forEach(input => input.listen())
 
 dqs('form').addEventListener('submit', e => {
-  if (!inputs.every(input => input.valid)) {
+  if (!fields.every(input => input.valid)) {
     e.preventDefault()
-    inputs.forEach(input => input.validate())
+    fields.forEach(input => input.validate())
     return
   }
 })
