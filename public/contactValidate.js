@@ -24,23 +24,20 @@ const fields = [{
     input: '#name',
     success: '#nameSuccess',
     fail: '#nameFail',
-    re: /\S/,
-    valid: false
+    re: /\S/
   },
   {
     input: '#email',
     success: '#emailSuccess',
     fail: '#emailFail',
     re: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-    message: dqs('#emailMessage'),
-    valid: false
+    message: dqs('#emailMessage')
   },
   {
     input: '#text',
     success: '#textSuccess',
     fail: '#textFail',
-    re: /\S/,
-    valid: false
+    re: /\S/
   }
 ]
 
@@ -48,6 +45,7 @@ fields.forEach(field => {
   field.input = dqs(field.input)
   field.success = dqs(field.success)
   field.fail = dqs(field.fail)
+  field.valid = false
   Object.assign(field, validator(field))
   field.input.addEventListener('keyup', field.validate)
   field.input.addEventListener('blur', field.validate)
