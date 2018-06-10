@@ -1,12 +1,12 @@
 # public directories
-/public/calculator
-/public/flexBoxGallery
-/public/img
-/public/intervalTimer
-/public/randomPonyName
-/public/secretSanta
-/public/taskList
+/public/calculator/
+/public/flexBoxGallery/
+/public/img/
+/public/intervalTimer/
+/public/randomPonyName/
+/public/secretSanta/
+/public/taskList/
 
-/node_modules
+/node_modules/
 
 private.js
