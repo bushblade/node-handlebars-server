@@ -2,10 +2,10 @@ const express = require('express'),
   app = express(),
   exhbs = require('express-handlebars'),
   bodyParser = require('body-parser'),
-  priv = require('./private'),
+  config = require('./private'),
   mailgun = require('mailgun-js')({
-    apiKey: priv().apiKey,
-    domain: priv().domain
+    apiKey: config.apiKey,
+    domain: config.domain
   })
 port = 80
 
@@ -35,7 +35,7 @@ app.post('/contact', (req, res) => {
   console.log(req.body)
   const data = {
     from: `${req.body.name} <${req.body.email}>`,
-    to: priv().to,
+    to: config.to,
     subject: 'Message received from your website',
     text: req.body.message
   }
