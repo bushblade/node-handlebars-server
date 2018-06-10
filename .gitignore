@@ -1,11 +1,11 @@
 # public directories
-/calculator
-/flexBoxGallery
-/img
-/intervalTimer
-/randomPonyName
-/secretSanta
-/taskList
+/public/calculator
+/public/flexBoxGallery
+/public/img
+/public/intervalTimer
+/public/randomPonyName
+/public/secretSanta
+/public/taskList
 
 /node_modules
 
