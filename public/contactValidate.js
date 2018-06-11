@@ -31,7 +31,7 @@ const fields = [{
     success: '#emailSuccess',
     fail: '#emailFail',
     re: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-    message: dqs('#emailMessage')
+    message: '#emailMessage'
   },
   {
     input: '#text',
@@ -45,6 +45,7 @@ fields.forEach(field => {
   field.input = dqs(field.input)
   field.success = dqs(field.success)
   field.fail = dqs(field.fail)
+  if (field.message) field.message = dqs(field.message)
   field.valid = false
   Object.assign(field, validator(field))
   field.input.addEventListener('keyup', field.validate)
