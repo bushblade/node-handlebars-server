@@ -6,8 +6,8 @@ const express = require('express'),
   mailgun = require('mailgun-js')({
     apiKey: config.apiKey,
     domain: config.domain
-  })
-port = 80
+  }),
+  port = 80
 
 app.engine('hbs', exhbs({
   extname: 'hbs',
