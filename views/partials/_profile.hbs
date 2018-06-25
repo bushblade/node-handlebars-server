@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="columns">
+    <div class="column is-half">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image container is-128x128">
+            <img src="img/profile.jpg" alt="">
+          </figure>
+        </div>
+        <div class="media-content">
+          <ul>
+            {{#each profileData}}
+            <li>
+              <a href="{{this.link}}">
+                <span class="icon">
+                  <i class="{{this.styles}}"></i>
+                </span>
+                {{this.text}}
+              </a>
+            </li>
+            {{/each}}            
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

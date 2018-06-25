@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get('/', (req, res) => res.render('index', {
-  title: 'Home'
+  title: 'Home',
+  profileData: require('./views/partials/profile.js')
 }))
 
 app.get('/contact', (req, res) => res.render('contact', {
