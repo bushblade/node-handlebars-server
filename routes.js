@@ -29,6 +29,10 @@ const router = app => {
       success: true
     })
   })
+
+  app.get('/api', (req, res) => {
+    res.status(200).send({ message: 'You reached Bushblades API' })
+  })
 }
 
 module.exports = router
