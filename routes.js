@@ -3,7 +3,7 @@ const config = require('./private'),
     apiKey: config.apiKey,
     domain: config.domain
   }),
-  random = require('./ponyname')
+  apiRoutes = require('./api-routes')
 
 const router = app => {
   app.get('/', (req, res) => res.render('index', {
@@ -31,17 +31,9 @@ const router = app => {
     })
   })
 
-  app.get('/api', (req, res) => {
-    res.status(200).send({ message: 'You reached Bushblades API' })
-  })
+  // API routes
+  apiRoutes(app)
 
-  app.get('/api/random-pony-name', (req, res) => {
-    res.status(200).send({ name: `${random()}` })
-  })
-
-  app.get('/api/:test', (req, res) => {
-    res.status(200).send({ message: `you reached the ${req.params.test} route` })
-  })
 }
 
 module.exports = router
