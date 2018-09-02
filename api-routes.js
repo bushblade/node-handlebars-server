@@ -3,7 +3,18 @@ const cors = require('cors')
 
 const api = app => {
 
+<<<<<<< HEAD
   app.get('/api', cors(), (req, res) => {
+=======
+  // CORS
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    next()
+  })
+
+  app.get('/api', (req, res) => {
+>>>>>>> 0c3ae62014abaf29a2b945000737e362cfa650a3
     res.status(200).send({
       message: 'You reached Bushblades API'
     })
