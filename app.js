@@ -5,17 +5,22 @@ const express = require('express'),
   router = require('./routes'),
   port = 80
 
-app.engine('hbs', exhbs({
-  extname: 'hbs',
-  defaultLayout: 'main'
-}))
+app.engine(
+  'hbs',
+  exhbs({
+    extname: 'hbs',
+    defaultLayout: 'main'
+  })
+)
 app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+)
 
 router(app)
 
@@ -26,5 +31,5 @@ app.use((req, res) => {
   }
 })
 
-app.listen(port, () => console.log(`server started on port ${port}`))
-
+// app.listen(port, () => console.log(`server started on port ${port}`))
+module.exports = app
