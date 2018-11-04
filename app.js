@@ -3,7 +3,7 @@ const express = require('express'),
   exhbs = require('express-handlebars'),
   bodyParser = require('body-parser'),
   router = require('./routes'),
-  port = 80
+  port = 3000
 
 app.engine(
   'hbs',
