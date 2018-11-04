@@ -30,8 +30,8 @@ greenLock
     communityMember: true,
 
     // Contribute telemetry data to the project
-    telemetry: true
+    telemetry: true,
 
-    //, debug: true
+    debug: true
   })
   .listen(80, 443)
