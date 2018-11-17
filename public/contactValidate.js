@@ -1,26 +1,30 @@
 const dqs = element => document.querySelector(element)
 
-const validator = state => ({
-  validate() {
-    if (state.re.test(state.input.value)) {
-      state.valid = true
-      state.input.classList.remove('is-danger')
-      state.input.classList.add('is-success')
-      state.success.classList.remove('is-hidden')
-      state.fail.classList.add('is-hidden')
-      state.message ? state.message.textContent = '' : false
-    } else {
-      state.valid = false
-      state.input.classList.remove('is-success')
-      state.input.classList.add('is-danger')
-      state.success.classList.add('is-hidden')
-      state.fail.classList.remove('is-hidden')
-      state.message ? state.message.textContent = 'This email is invalid!' : false
+const validator = state => {
+  const { re, input, success, fail, message } = state
+  return {
+    validate() {
+      if (re.test(input.value)) {
+        state.valid = true
+        input.classList.remove('is-danger')
+        input.classList.add('is-success')
+        success.classList.remove('is-hidden')
+        fail.classList.add('is-hidden')
+        message ? (message.textContent = '') : false
+      } else {
+        state.valid = false
+        input.classList.remove('is-success')
+        input.classList.add('is-danger')
+        success.classList.add('is-hidden')
+        fail.classList.remove('is-hidden')
+        message ? (message.textContent = 'This email is invalid!') : false
+      }
     }
   }
-})
+}
 
-const fields = [{
+const fields = [
+  {
     input: '#name',
     success: '#nameSuccess',
     fail: '#nameFail',
