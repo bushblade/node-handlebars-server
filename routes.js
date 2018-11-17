@@ -6,23 +6,27 @@ const config = require('./private'),
   apiRoutes = require('./api-routes')
 
 const router = app => {
-  app.get('/', (req, res) => res.render('index', {
-    title: 'Home',
-    profileData: require('./views/partials/profile.js')
-  }))
+  app.get('/', (req, res) =>
+    res.render('index', {
+      title: 'Home',
+      profileData: require('./views/partials/profile.js')
+    })
+  )
 
-  app.get('/contact', (req, res) => res.render('contact', {
-    title: 'Contact',
-    success: false,
-    script: "/contactValidate.js"
-  }))
+  app.get('/contact', (req, res) =>
+    res.render('contact', {
+      title: 'Contact',
+      success: false,
+      script: '/contactValidate.js'
+    })
+  )
 
-  app.post('/contact', (req, res) => {
+  app.post('/contact', ({ body: { name, email, message } }, res) => {
     const data = {
-      from: `${req.body.name} <${req.body.email}>`,
+      from: `${name} <${email}>`,
       to: config.to,
       subject: 'Message received from your website',
-      text: req.body.message
+      text: message
     }
     mailgun.messages().send(data, (error, body) => console.log(body))
     res.render('contact', {
@@ -33,7 +37,6 @@ const router = app => {
 
   // API routes
   apiRoutes(app)
-
 }
 
 module.exports = router
