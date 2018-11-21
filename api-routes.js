@@ -28,7 +28,7 @@ const api = app => {
       .get(`https://api.imgur.com/3/album/${album}`, imgurOptions)
       .then(r => {
         console.log(r)
-        res.status(200).send(r)
+        res.status(200).send(r.data)
       })
       .catch(err => res.send(err))
   })
