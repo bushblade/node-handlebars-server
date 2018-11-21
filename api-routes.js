@@ -23,11 +23,10 @@ const api = app => {
   })
 
   app.get('/api/imgur/:album', cors(), (req, res) => {
-    const { album } = req.params.album
+    const { album } = req.params
     axios
       .get(`https://api.imgur.com/3/album/${album}`, imgurOptions)
       .then(r => {
-        console.log(r)
         res.status(200).send(r.data)
       })
       .catch(err => res.send(err))
