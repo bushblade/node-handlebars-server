@@ -25,7 +25,7 @@ const router = app => {
     const data = {
       from: `${name} <${email}>`,
       to: config.to,
-      subject: 'Message received from your website',
+      subject: 'Message received from bushbladeprojects',
       text: message
     }
     mailgun.messages().send(data, (error, body) => console.log(body))
