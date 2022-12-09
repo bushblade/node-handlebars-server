@@ -12,7 +12,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-handlebars": "^3.0.0",
     "greenlock-express": "^2.4.6",
     "le-acme-core": "^2.1.3",
